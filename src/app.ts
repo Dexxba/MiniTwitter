@@ -2,7 +2,11 @@
 import express from 'express'; // Importing Express framework for handling server-side logic
 import mysql from 'mysql2'; // Importing mysql2 for database interactions
 import { config } from './config'; // Importing configuration settings (like database credentials)
-import { router as userRoutes } from './routes/userRoutes'; // Importing routes defined for user operations
+import { router as userRoutes } from './routes/userRoutes';  // Importing routes defined for user operations
+import { router as tweetRoutes } from  './routes/tweetRoutes'; // Importing routes defined for tweet operations
+import { router as commentRoutes } from  './routes/commentRoutes' // Importing routes defined for comment operations
+import {router as likeRoutes } from  "./routes/likeRoutes"; // Importing routes defined for like operations
+
 
 // Creating a new connection to the MySQL database using the configuration imported from './config'
 export const connection = mysql.createConnection({
@@ -33,6 +37,14 @@ app.use(express.json());
 
 // Include user-defined routes into the application to handle user-related operations
 app.use(userRoutes);
+// Include tweet-defined routes into the application to handle user-related operations
+app.use(tweetRoutes);
+// Include comment-defined routes into the application to handle user-related operations
+app.use(commentRoutes);
+// Include comment-defined routes into the application to handle user-related operations
+app.use(likeRoutes);
+
+
 
 // Define a simple route for the root path to send a greeting
 app.get('/', (req, res) => {
