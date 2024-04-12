@@ -22,4 +22,4 @@ router.delete('/users/:id', UserController.deleteUser);
 // Define GET route for retrieving a user by ID
 // When the /users/:id endpoint is hit with a GET request, the getUser method in UserController is used
 // The :id parameter here is used to fetch the specific user by their ID
-router.get('/users/:id', UserController.getUser);
+router.get('/users/:id', UserController.getUserById);
