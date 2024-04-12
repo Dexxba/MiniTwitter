@@ -88,4 +88,22 @@ export class User {
             });
         });
     }
-}
+    static async login(id: number, username?: string, email?: string): Promise<User | null> {
+        const db = await getDatabaseConnection.create(); // Obtain a new database connection
+        const sql = 'SELECT * FROM user WHERE username = ?'; // SQL query to retrieve a user by their username
+    
+        // Creating a new Promise that will either resolve with a User object or null
+        return new Promise((resolve, reject) => {
+            connection.query<RowDataPacket[]>(sql, [id, username, email], (error, results) => {
+                db.close(); // Close the database connection once the query is completed
+    
+                if (results.length > 0) {
+                    const r = results[0]; // Take the first result row, assuming it contains the user data
+                    resolve(new User(r.id, r.username, r.email, r.password, r.isAdmin)); // Resolve the promise with a new User instance created from the retrieved data
+                } else {
+                    resolve(null); // If no results are found, resolve the promise with null
+                }
+            });
+        });
+    }
+}    

@@ -87,4 +87,23 @@ export class UserController {
             }
         }
     }
-}
+    static async loginUser(req: express.Request, res: express.Response) {
+        try {
+            const { username, password } = req.body; // Extract username and password from the request body
+    
+            const user = await User.login(username, password); // Call the login method in the User class with the provided credentials
+    
+            if (user) {
+                res.status(200).send("Login successful"); // If the user is found and the credentials are correct, send a success response
+            } else {
+                res.status(401).send("Invalid username or password"); // If the credentials are incorrect or the user does not exist, send an error response
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).send(error.message); // If there is a known error, send the error message with a 500 status code
+            } else {
+                res.status(500).send('Unknown error occurred'); // If the error is not an instance of Error, send a generic error message
+            }
+        }
+    }
+}    

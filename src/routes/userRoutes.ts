@@ -23,3 +23,7 @@ router.delete('/users/:id', UserController.deleteUser);
 // When the /users/:id endpoint is hit with a GET request, the getUser method in UserController is used
 // The :id parameter here is used to fetch the specific user by their ID
 router.get('/users/:id', UserController.getUserById);
+
+// Define POST route for login
+// When the /login endpoint is hit with a POST request, the login method from UserController is called
+router.post('/login', UserController.loginUser);
